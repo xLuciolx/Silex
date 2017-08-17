@@ -4,7 +4,7 @@
 <nav class="menu-res hidden-lg hidden-md ">
 	<div class="menu-res-inner">
 		<ul>
-			{% for categorie in app.technews_categories%}
+			{% for categorie in app.technews_categories %}
 			<li>
 				<a href="{{ categorie.ROUTECATEGORIE }}">{{ categorie.LIBELLECATEGORIE}}</a>
 			</li>
@@ -18,7 +18,7 @@
 		<header class="header">
 			<div class="row">
 				<div class="col-md-3 col-sm-4 col-xs-12">
-					<a href="#" class="logo">
+					<a href="{{ url('technews_home') }}" class="logo">
 						<img alt="Logo" src="{{asset('assets/images/logo.png')}}" />
 					</a>
 				</div>

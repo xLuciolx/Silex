@@ -1,12 +1,16 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}
+  {{ libelle | capitalize }}
+{% endblock %}
+
 {% block content %}
-{# {{ dump(app.articleCategorie)}} #}
 <div class="row">
     <!--colleft-->
+    {% if not articlesCategorie == null %}
     <div class="col-md-8 col-sm-12">
         <div class="box-caption">
-            <span>Computing</span>
+            <span>{{ libelle }}</span>
         </div>
         <!--list-news-cate-->
         <div class="list-news-cate">
@@ -14,19 +18,19 @@
                     <article class="news-cate-item">
                         <div class="row">
                             <div class="col-md-5 col-sm-5 col-xs-12">
-                                <a href="#">
-                                    <img alt="" src="images/product/2.jpg">
+                                <a href="{{ url('technews_article', {'libelleCategorie': article.LIBELLECATEGORIE | lower, 'slugArticle': article.TITREARTICLE | slugify, 'idArticle': article.IDARTICLE}) }}">
+                                    <img alt="{{ article.TITREARTICLE }}" src="{{ asset('assets/images/product/' ~ article.FEATUREDIMAGEARTICLE) }}">
                                 </a>
                             </div>
                             <div class="col-md-7 col-sm-7 col-xs-12">
-                                <h3><a href="#">Tip Aligning Digital Marketing with Business Goals and Objectives</a></h3>
+                                <h3><a href="{{ url('technews_article', {'libelleCategorie': article.LIBELLECATEGORIE | lower, 'slugArticle': article.TITREARTICLE | slugify, 'idArticle': article.IDARTICLE}) }}">{{ article.TITREARTICLE }}</a></h3>
                                 <div class="meta-post">
                                     <a href="#">
-                                    {{ article.PRENOMAUTEUR}} {{article.NOMAUTEUR }}
+                                    {{ article.PRENOMAUTEUR ~ ' ' ~article.NOMAUTEUR }}
                                     </a>
                                     <em></em>
                                     <span>
-                                        2017-02-26 09:37:18
+                                        {{ article.DATECREATIONARTICLE }}
                                     </span>
                                 </div>
                                 Nulla quis lorem ut libero malesuada feugiat. Cras ultricies ligula sed magna dictum porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere...
@@ -45,8 +49,18 @@
             <a href="#">5</a>
             <a href="#">Next</a>
         </div> -->
-
+        {% else %}
+        <div class="col-md-8 col-sm-12">
+            <div class="box-caption">
+                <span>{{ libelle }}</span>
+            </div>
+            <h3>
+              Aucune publication pour le moment
+            </h3>
+        {% endif %}
     </div>
 
+    {% include '/inc/sidebar.html' %}
 </div>
+
 {% endblock %}

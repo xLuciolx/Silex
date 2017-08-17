@@ -1,4 +1,5 @@
 <?php
+use Cocur\Slugify\Bridge\Silex2\SlugifyServiceProvider;
 use Silex\Application;
 use Silex\Provider\AssetServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
@@ -26,6 +27,9 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
       ],
 ));
 
+/*Activation de Slugify (https://github.com/cocur/slugify)*/
+$app->register(new SlugifyServiceProvider());
+
 /*récuperation des categories*/
 $app['technews_categories'] = function() use($app){
   return $app['db']->fetchAll('SELECT * FROM categorie');
@@ -36,7 +40,17 @@ $app['technews_tags'] = function () use($app){
   return $app['db']->fetchAll('SELECT * FROM tags');
 };
 
-/*activation ed Asset*/
+/*récuperation des derniers articles*/
+$app['lastArticles'] = function () use ($app){
+  return $app['db']->fetchAll('SELECT * FROM view_articles ORDER BY DATECREATIONARTICLE DESC LIMIT 5');
+};
+
+/*récupération des articles spéciaux*/
+$app['specialArticles'] = function () use($app){
+  return $app['db']->fetchAll('SELECT * FROM view_articles WHERE SPECIALARTICLE = 1');
+};
+
+/*activation de Asset*/
 $app->register(new AssetServiceProvider());
 
 /*activation Doctrine DBAL*/

@@ -38,7 +38,7 @@ class NewsControllerProvider implements ControllerProviderInterface {
 
         ->assert('idArticle', '\d+')
 
-        ->value('idArticle', '1')
+        // ->value('idArticle', '1')
 
         ->bind('technews_article');
 

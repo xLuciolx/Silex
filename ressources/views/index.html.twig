@@ -12,30 +12,30 @@
  <!--spotlight-->
  <section class="owl-carousel owl-spotlight">
 
-   {% for article in spotlight %}
+   {% for spot in spotlight %}
        <div>
          <article class="spotlight-item">
            <div class="spotlight-img">
-             <img alt="{{ article.TITREARTICLE }}" src="{{ asset('assets/images/product/' ~ article.FEATUREDIMAGEARTICLE) }}" class="img-responsive" />
-             <a href="#" class="cate-tag">{{ article.LIBELLECATEGORIE }}</a>
+             <img alt="{{ spot.TITREARTICLE }}" src="{{ asset('assets/images/product/' ~ spot.FEATUREDIMAGEARTICLE) }}" class="img-responsive" />
+             <a href="{{ url('technews_categorie', {'libelleCategorie': spot.LIBELLECATEGORIE | lower}) }}" class="cate-tag">{{ spot.LIBELLECATEGORIE }}</a>
            </div>
            <div class="spotlight-item-caption">
              <h2 class="font-heading">
-               <a href="#">
-                 {{ article.TITREARTICLE }}
+               <a href="{{ url('technews_article', {'libelleCategorie': spot.LIBELLECATEGORIE | lower, 'slugArticle': spot.TITREARTICLE | slugify, 'idArticle': spot.IDARTICLE}) }}">
+                 {{ spot.TITREARTICLE }}
                </a>
              </h2>
              <div class="meta-post">
                <a href="#">
-                 {{ article.PRENOMAUTEUR ~' '~ article.NOMAUTEUR }}
+                 {{ spot.PRENOMAUTEUR ~' '~ spot.NOMAUTEUR }}
                </a>
                <em></em>
                <span>
-                 {{ article.DATECREATIONARTICLE }}
+                 {{ spot.DATECREATIONARTICLE }}
                </span>
              </div>
              <p>
-               {{ article.CONTENUARTICLE | raw }}
+               {{ spot.CONTENUARTICLE | raw }}
              </p>
            </div>
          </article>
@@ -51,16 +51,16 @@
          <div class="col-md-4 col-sm-4 col-xs-12">
            <div class="spotlight-item-thumb">
              <div class="spotlight-item-thumb-img">
-               <a href="#">
+               <a href="{{ url('technews_article', {'libelleCategorie': article.LIBELLECATEGORIE | lower, 'slugArticle': article.TITREARTICLE | slugify, 'idArticle': article.IDARTICLE}) }}">
                  <img alt="{{ article.TITREARTICLE }}" src="{{ asset('assets/images/product/' ~ article.FEATUREDIMAGEARTICLE) }}" />
                </a>
-               <a href="#" class="cate-tag">{{ article.LIBELLECATEGORIE }}</a>
+               <a href="{{ url('technews_categorie', {'libelleCategorie': article.LIBELLECATEGORIE | lower}) }}" class="cate-tag">{{ article.LIBELLECATEGORIE }}</a>
              </div>
              <h3>
-               <a href="#">{{ article.TITREARTICLE }}</a>
+               <a href="{{ url('technews_article', {'libelleCategorie': article.LIBELLECATEGORIE | lower, 'slugArticle': article.TITREARTICLE | slugify, 'idArticle': article.IDARTICLE}) }}">{{ article.TITREARTICLE }}</a>
              </h3>
              <div class="meta-post">
-               <a href="<?= $article->getAuteurObj()->makeAuteurURL(); ?>">
+               <a href="#">
                  {{ article.PRENOMAUTEUR ~' '~ article.NOMAUTEUR }}
                </a>
                <em></em>
@@ -73,7 +73,9 @@
      {% endfor %}
 
    </div>
- </section>
-</div>
 
+ </section>
+
+</div>
+{% include 'inc/sidebar.html' %}
 {% endblock %}
