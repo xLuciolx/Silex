@@ -1,30 +1,45 @@
 <?php
 namespace TechNews\Controller;
+use Silex\Application;
 
 class NewsController {
 
   /**
    * Affichage de la page d'accueil
+   * @param Application $app
    * @return Symphony\Component\HttpFoundation\Response
    */
-  public function indexAction(){
-    return '<h1>Accueil</h1>';
+  public function indexAction(Application $app){
+
+    //Connexion BDD et récup des articles
+    $articles = $app['db']->fetchAll('SELECT * FROM view_articles');
+
+    // Récup des spotlights
+    $spotlight = $app['db']->fetchAll('SELECT * FROM view_articles WHERE SPOTLIGHTARTICLE = 1');
+    return $app['twig']->render('index.html.twig', [
+      'articles'  => $articles,
+      'spotlight' => $spotlight
+    ]);
   }
 
   /**
    * Affichage de la page catégorie
+   * @param Application $app
    * @param string $libelleCategorie
    * @return Symphony\Component\HttpFoundation\Response
    */
-  public function categorieAction($libelleCategorie){
-    return "<h1>Categorie - $libelleCategorie</h1>";
+  public function categorieAction(Application $app, $libelleCategorie){
+
+    $articlesCategorie = $app['db']->fetchAll("SELECT * FROM view_articles WHERE LIBELLECATEGORIE = '$libelleCategorie' ");
+
+    return $app['twig']->render('categorie.html.twig', ['articlesCategorie' => $articlesCategorie]);
     }
 
   /**
    * Affichage de la page article
    * @param string $libelleCategorie
    * @param string $slugArticle
-   * @param int $idarticle
+   * @param int $idArticle
    * @return Symphony\Component\HttpFoundation\Response
    */
   public function articleAction($libelleCategorie, $slugArticle, $idArticle){

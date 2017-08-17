@@ -46,5 +46,5 @@ class NewsControllerProvider implements ControllerProviderInterface {
     return $controllers;
   }
 
-  
+
 }
