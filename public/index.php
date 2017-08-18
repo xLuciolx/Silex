@@ -3,8 +3,11 @@ use Cocur\Slugify\Bridge\Silex2\SlugifyServiceProvider;
 use Silex\Application;
 use Silex\Provider\AssetServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
+use Silex\Provider\HttpFragmentServiceProvider;
 use TechNews\Controller\Provider\NewsControllerProvider;
 use TechNews\Controller\Provider\AdminControllerProvider;
+use TechNews\Extension\TechNewsTwigExtension;
+use Idiorm\Silex\Provider\IdiormServiceProvider;
 
 /*autoloader*/
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -29,6 +32,12 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 /*Activation de Slugify (https://github.com/cocur/slugify)*/
 $app->register(new SlugifyServiceProvider());
+
+/*Ajout des extensions TechNews pour Twig*/
+$app->extend('twig', function($twig, $app){
+  $twig->addExtension(new TechNewsTwigExtension());
+  return $twig;
+});
 
 /*récuperation des categories*/
 $app['technews_categories'] = function() use($app){
@@ -65,7 +74,22 @@ $app->register(new DoctrineServiceProvider(),array(
     ),
 ));
 
+/*integration Idiorm*/
+$app->register(new IdiormServiceProvider(), array(
+  'idiorm.db.options'     => array(
+    'connection_string'   => 'mysql:host=localhost; dbname=technews2',
+    'username'            => 'root',
+    'password'            => '',
+    'id_column_overrides' => array(
+      'view_articles'     => 'IDARTICLE'
+    )
 
+  )
+));
+
+/*Activation HttpFragmentServiceProvider*/
+/*voir doc silex*/
+$app->register(new HttpFragmentServiceProvider());
 
 
 /*execution de l'application*/

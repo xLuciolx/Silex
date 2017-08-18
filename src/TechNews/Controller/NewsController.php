@@ -12,8 +12,8 @@ class NewsController {
   public function indexAction(Application $app){
 
     //Connexion BDD et récup des articles
-    $articles = $app['db']
-                ->fetchAll('SELECT * FROM view_articles');
+    $articles  = $app['db']
+                 ->fetchAll('SELECT * FROM view_articles');
 
     // Récup des spotlights
     $spotlight = $app['db']
@@ -40,19 +40,19 @@ class NewsController {
 
     return $app['twig']->render('categorie.html.twig', [
       'articlesCategorie' => $articlesCategorie,
-      'libelle' => $libelleCategorie
+      'libelle'           => $libelleCategorie
     ]);
     }
 
   /**
    * Affichage de la page article
    * @param Application $app
-   * @param string $libelleCategorie
    * @param string $slugArticle
+   * @param string $libelleCategorie
    * @param int $idArticle
    * @return Application
    */
-  public function articleAction(Application $app, $libelleCategorie, $slugArticle, $idArticle){
+  public function articleAction(Application $app, $slugArticle, $libelleCategorie, $idArticle){
     //ex. de route: index.php/business/une-formation-innovante-a-villefranche_0999999.html
 
     //récuperation de l'article
@@ -69,8 +69,35 @@ class NewsController {
                               LIMIT 3");
 
     return $app['twig']->render('article.html.twig', [
-      'article' => $article,
+      'article'     => $article,
       'suggestions' => $suggestions
       ]) ;
   }
+
+  public function menu(Application $app){
+    //recuperation des categorie
+    $categories = $app['idiorm.db']->for_table('categorie')->find_result_set();
+
+    //transmission à la vue
+    return $app['twig']->render('menu.html.twig', ['categories' => $categories]);
+  }
+
+  /**
+   * Génération de la side bar dans le layout
+   * public function sidebar(Application $app){
+   *   //recup info
+   *   $sidebar = $app['idiorm.db']->for_table('view_articles')
+   *                               ->order_by_desc('DATECREATIONARTICLE')
+   *                               ->limit(5),
+   *                               ->find_result_set();
+   *    $special = $app['idiorm.db']->for_table('view_articles')
+   *                                ->where('SPECIALARTICLE', 1)
+   *                                ->find_result_set();
+   *    //transmission
+   *    return $app['twig']->render('sidebar.html.twig', [
+   *      'sidebar' => $sidebar,
+   *      'special' => $special
+   *      ]);
+   * }
+   */
 }

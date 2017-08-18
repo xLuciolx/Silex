@@ -5,12 +5,17 @@
 {% endblock %}
 
 {% block content %}
+{# {{dump(global.request.get('libelleCategorie'))}} #}
 <div class="row">
     <!--colleft-->
     {% if not articlesCategorie == null %}
     <div class="col-md-8 col-sm-12">
         <div class="box-caption">
             <span>{{ libelle }}</span>
+            <!-- <span>
+            {#{{ global.request.get('libelleCategorie') }}#}
+            </span> -->
+
         </div>
         <!--list-news-cate-->
         <div class="list-news-cate">
@@ -33,7 +38,7 @@
                                         {{ article.DATECREATIONARTICLE }}
                                     </span>
                                 </div>
-                                Nulla quis lorem ut libero malesuada feugiat. Cras ultricies ligula sed magna dictum porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere...
+                                {{ article.CONTENUARTICLE | accroche }}
                             </div>
                         </div>
                     </article>

@@ -17,7 +17,7 @@
         </div>
     </div>
     <!-- inclusion menu -->
-    {% include 'inc/menu.html' %}
+    {{ render(controller('TechNews\\Controller\\NewsController::menu')) }}
 
     <!-- contenu du site -->
     {% block content %}{% endblock %}

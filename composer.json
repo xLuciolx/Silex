@@ -5,9 +5,12 @@
         "symfony/twig-bridge": "^3.3",
         "symfony/asset": "^3.3",
         "doctrine/dbal": "~2.2",
-        "cocur/slugify": "^3.0"
+        "cocur/slugify": "^3.0",
+        "j4mie/idiorm": "^1.5"
     },
     "autoload": {
-      "psr-4": {"TechNews\\" : "src/TechNews/"}
+      "psr-4": {"TechNews\\" : "src/TechNews/",
+                "Idiorm\\": "src/Idiorm/"
+      }
     }
 }
