@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block content %}
-{# {{ dump(article)}} #}
 <div class="row">
   <!--colleft-->
   <div class="col-md-8 col-sm-12">
@@ -13,7 +12,7 @@
     <article class="post-detail">
         <h1>{{ article.TITREARTICLE }}</h1>
         <div class="meta-post">
-            <a href="#">
+            <a href="{{ url('technews_auteur', {slugAuteur: article.PRENOMAUTEUR | lower ~'-'~ article.NOMAUTEUR | lower | slug, idAuteur: article.IDAUTEUR}) }}">
                 {{ article.PRENOMAUTEUR ~ ' ' ~ article.NOMAUTEUR }}
             </a>
             <em></em>
@@ -92,7 +91,7 @@
               <a href="{{ url('technews_article', {'libelleCategorie': suggestion.LIBELLECATEGORIE | lower, 'slugArticle': suggestion.TITREARTICLE | slugify, 'idArticle': suggestion.IDARTICLE}) }}">{{ suggestion.TITREARTICLE }}</a>
             </h3>
             <div class="meta-post">
-              <a href="#">
+              <a href="{{ url('technews_auteur', {slugAuteur: suggestion.PRENOMAUTEUR | lower ~'-'~ suggestion.NOMAUTEUR | lower | slug, idAuteur: suggestion.IDAUTEUR}) }}">
                 {{ suggestion.PRENOMAUTEUR ~ ' ' ~ suggestion.NOMAUTEUR }}
               </a>
               <em></em>

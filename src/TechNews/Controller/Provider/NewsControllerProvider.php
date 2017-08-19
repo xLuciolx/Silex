@@ -7,7 +7,7 @@ class NewsControllerProvider implements ControllerProviderInterface {
 
   /**
    * @see \Silex\Api\ControllerProviderInterface::connect()
-   * @param  \Silex\Application $app [description]
+   * @param  \Silex\Application $app
    */
   public function connect(\Silex\Application $app){
 
@@ -41,6 +41,12 @@ class NewsControllerProvider implements ControllerProviderInterface {
         // ->value('idArticle', '1')
 
         ->bind('technews_article');
+
+      //Page auteurs
+      $controllers
+        ->get('/{slugAuteur}_{idAuteur}.html', 'TechNews\Controller\NewsController::auteurAction')
+        ->assert('idAuteur', '\d+')
+        ->bind('technews_auteur');
 
     /*retourne la liste des controllers*/
     return $controllers;

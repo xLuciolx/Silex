@@ -2,9 +2,12 @@
 <nav class="menu-res hidden-lg hidden-md ">
 	<div class="menu-res-inner">
 		<ul>
+			<li>
+				<a href="{{ url('technews_home') }}">Accueil</a>
+			</li>
 			{% for categorie in categories %}
 			<li>
-				<a href="{{ categorie.ROUTECATEGORIE }}">{{ categorie.LIBELLECATEGORIE}}</a>
+				<a href="{{ url('technews_categorie', {'libelleCategorie': categorie.LIBELLECATEGORIE | lower}) }}">{{ categorie.LIBELLECATEGORIE}}</a>
 			</li>
 			{% endfor %}
 		</ul>

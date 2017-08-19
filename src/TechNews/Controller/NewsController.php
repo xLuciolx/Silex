@@ -82,6 +82,17 @@ class NewsController {
     return $app['twig']->render('menu.html.twig', ['categories' => $categories]);
   }
 
+  public function auteurAction(Application $app, $idAuteur){
+    //récupération des articles d'un auteur
+    $articlesAuteur = $app['idiorm.db']
+                      ->for_table('view_articles')
+                      ->where('IDAUTEUR', $idAuteur)
+                      ->find_result_set();
+
+    //transmission à la vue
+    return $app['twig']->render('auteur.html.twig', ['articles' => $articlesAuteur]);
+  }
+
   /**
    * Génération de la side bar dans le layout
    * public function sidebar(Application $app){

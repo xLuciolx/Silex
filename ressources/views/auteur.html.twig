@@ -1,0 +1,58 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+  {{articles[0].PRENOMAUTEUR ~ ' ' ~ articles[0].NOMAUTEUR}}
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <!--colleft-->
+    <div class="col-md-8 col-sm-12">
+      <h3>
+        Les derniers articles de {{ articles[0].PRENOMAUTEUR~' '~articles[0].NOMAUTEUR }}
+      </h3>
+      <!--list-article-author-->
+      <div class="list-news-cate">
+        {% for article in articles %}
+        <article class="news-cate-item">
+          <div class="row">
+              <div class="col-md-5 col-sm-5 col-xs-12">
+                <a href="{{ url('technews_article', {libelleCategorie: article.LIBELLECATEGORIE, slugArticle: article.TITREARTICLE | slug, idArticle: article.IDARTICLE }) }}">
+                  <img alt="{{ article.TITREARTICLE }}" src="{{ asset('assets/images/product/'~article.FEATUREDIMAGEARTICLE) }}">
+                </a>
+              </div>
+              <div class="col-md-7 col-sm-7 col-xs-12">
+                <h3>
+                  <a href="{{ url('technews_article', {libelleCategorie: article.LIBELLECATEGORIE, slugArticle: article.TITREARTICLE | slug, idArticle: article.IDARTICLE }) }}">{{ article.TITREARTICLE }}</a>
+                </h3>
+                <div class="meta-post">
+                  <a href="mailto:{{ article.EMAILAUTEUR }}">
+                    {{ article.PRENOMAUTEUR~' '~article.NOMAUTEUR }}
+                  </a>
+                  <em></em>
+                  <span>
+                    {{ article.DATECREATIONARTICLE }}
+                  </span>
+                </div>
+                {{ article.CONTENUARTICLE | accroche }}
+              </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+
+      <!-- <div class="paging">
+      <a href="#">Prev</a>
+      <a href="#" class="current">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">4</a>
+      <a href="#">5</a>
+      <a href="#">Next</a>
+    </div> -->
+
+    </div>
+    {% include 'inc/sidebar.html' %}
+
+  </div>
+{% endblock %}

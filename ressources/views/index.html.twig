@@ -26,7 +26,7 @@
                </a>
              </h2>
              <div class="meta-post">
-               <a href="#">
+               <a href="{{ url('technews_auteur', {slugAuteur: spot.PRENOMAUTEUR | lower ~'-'~ spot.NOMAUTEUR | lower | slug, idAuteur: spot.IDAUTEUR}) }}">
                  {{ spot.PRENOMAUTEUR ~' '~ spot.NOMAUTEUR }}
                </a>
                <em></em>
@@ -60,7 +60,7 @@
                <a href="{{ url('technews_article', {'libelleCategorie': article.LIBELLECATEGORIE | lower, 'slugArticle': article.TITREARTICLE | slugify, 'idArticle': article.IDARTICLE}) }}">{{ article.TITREARTICLE }}</a>
              </h3>
              <div class="meta-post">
-               <a href="#">
+               <a href="{{ url('technews_auteur', {slugAuteur: article.PRENOMAUTEUR | lower ~'-'~ article.NOMAUTEUR | lower | slug, idAuteur: article.IDAUTEUR}) }}">
                  {{ article.PRENOMAUTEUR ~' '~ article.NOMAUTEUR }}
                </a>
                <em></em>
