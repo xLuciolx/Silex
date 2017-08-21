@@ -1,6 +1,7 @@
 <?php
 namespace TechNews\Controller;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 
 class NewsController {
 
@@ -74,12 +75,15 @@ class NewsController {
       ]) ;
   }
 
-  public function menu(Application $app){
+  public function menu($active, Application $app){
     //recuperation des categorie
     $categories = $app['idiorm.db']->for_table('categorie')->find_result_set();
 
     //transmission à la vue
-    return $app['twig']->render('menu.html.twig', ['categories' => $categories]);
+    return $app['twig']->render('menu.html.twig', [
+      'categories' => $categories,
+      'active' => $active
+    ]);
   }
 
   public function auteurAction(Application $app, $idAuteur){
@@ -111,4 +115,35 @@ class NewsController {
    *      ]);
    * }
    */
+
+   public function connexionAction(){
+     return '<h1>Connexion</h1>';
+   }
+
+   public function inscriptionAction(Application $app){
+     return $app['twig']->render('inscription.html.twig');
+   }
+
+  /* Traitement POST du formulaire d'inscription*/
+   public function inscriptionPost(Application $app, Request $request){
+      /*verif et sécurisation des donnees POST*/
+
+      /*connexion BDD*/
+      $auteur = $app['idiorm.db']->for_table('auteur')
+                                 ->create();
+      /*affectation des valeurs*/
+      $auteur->PRENOMAUTEUR  = $request->get(('PRENOMAUTEUR'));
+      $auteur->NOMAUTEUR     = $request->get(('NOMAUTEUR'));
+      $auteur->EMAILAUTEUR   = $request->get(('EMAILAUTEUR'));
+      $auteur->MDPAUTEUR     = $app['security.encoder.digest']->encodePassword($request->get('MDPAUTEUR'), '');
+      $auteur->ROLESAUTEUR   = $request->get(('ROLESAUTEUR'));
+
+      /*persistance en BDD*/
+      $auteur->save();
+
+      /*on envoie un email de confirmation*/
+      /*notification à l'administrateur*/
+      /*on redirige sur la page de connexion*/
+      return $app->redirect('connexion?inscription=success');
+   }
 }

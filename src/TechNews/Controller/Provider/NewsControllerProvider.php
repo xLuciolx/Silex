@@ -48,6 +48,21 @@ class NewsControllerProvider implements ControllerProviderInterface {
         ->assert('idAuteur', '\d+')
         ->bind('technews_auteur');
 
+      //Page connexion
+      $controllers
+        ->get('/connexion', 'TechNews\Controller\NewsController::connexionAction')
+        ->bind('technews_connexion');
+
+      //Page inscription
+      $controllers
+        ->get('/inscription', 'TechNews\Controller\NewsController::inscriptionAction')
+        ->bind('technews_inscription');
+
+      $controllers
+      ->post('/inscription', 'TechNews\Controller\NewsController::inscriptionPost')
+      ->bind('technews_inscription_post');
+
+
     /*retourne la liste des controllers*/
     return $controllers;
   }

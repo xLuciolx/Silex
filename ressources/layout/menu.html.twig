@@ -32,11 +32,11 @@
 				<span>MENU</span>
 			</div>
 			<ul class="hidden-sm hidden-xs">
-				<li>
+				<li {% if 'accueil' == active %}class="current"{% endif %}>
 					<a href="{{ url('technews_home') }}">Accueil</a>
 				</li>
 				{% for categorie in categories %}
-        <li>
+        <li  {% if categorie.LIBELLECATEGORIE == active %}class="current"{% endif %}>
         	<a href="{{ url('technews_categorie', {'libelleCategorie': categorie.LIBELLECATEGORIE | lower}) }}">{{ categorie.LIBELLECATEGORIE}}</a>
         </li>
     		{% endfor %}

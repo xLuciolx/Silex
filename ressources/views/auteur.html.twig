@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
 
+{% set active = 'accueil' %}
+
 {% block title %}
   {{articles[0].PRENOMAUTEUR ~ ' ' ~ articles[0].NOMAUTEUR}}
 {% endblock %}

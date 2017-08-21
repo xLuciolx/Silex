@@ -1,9 +1,11 @@
 {% extends 'layout.html.twig' %}
 
+
 {% block title %}
   {{ libelle | capitalize }}
 {% endblock %}
 
+{% set active = libelle | capitalize %}
 {% block content %}
 {# {{dump(global.request.get('libelleCategorie'))}} #}
 <div class="row">

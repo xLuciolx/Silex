@@ -11,14 +11,6 @@ class AdminControllerProvider implements ControllerProviderInterface {
     $adminControllers = $app['controllers_factory'];
 
       $adminControllers
-        ->get('/connexion', 'TechNews\Controller\AdminController::connexionAction')
-        ->bind('technews_adminconnexion');
-
-      $adminControllers
-        ->get('/inscription', 'TechNews\Controller\AdminController::inscriptionAction')
-        ->bind('technews_admininscription');
-
-      $adminControllers
         ->get('/ajouter/article', 'TechNews\Controller\AdminController::addArticleAction')
         ->bind('technews_admin');
 

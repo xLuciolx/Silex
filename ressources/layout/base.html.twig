@@ -17,7 +17,7 @@
         </div>
     </div>
     <!-- inclusion menu -->
-    {{ render(controller('TechNews\\Controller\\NewsController::menu')) }}
+    {{ render(controller('TechNews\\Controller\\NewsController::menu', {'active': active})) }}
 
     <!-- contenu du site -->
     {% block content %}{% endblock %}
