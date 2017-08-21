@@ -12,7 +12,7 @@ class AdminControllerProvider implements ControllerProviderInterface {
 
       $adminControllers
         ->get('/ajouter/article', 'TechNews\Controller\AdminController::addArticleAction')
-        ->bind('technews_admin');
+        ->bind('technews_addArticle');
 
     return $adminControllers;
   }

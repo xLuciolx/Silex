@@ -20,8 +20,8 @@ require PATH_SRC.'/routes.php';
 /*activation de twig*/
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => [
-      __DIR__.'/../ressources/views',
-      __DIR__.'/../ressources/layout'
+      PATH_VIEWS,
+      PATH_RESSOURCES.'/layout'
       ],
 ));
 

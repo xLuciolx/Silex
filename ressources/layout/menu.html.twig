@@ -45,8 +45,11 @@
             <a href="{{url('technews_deconnexion') }}">Deconnexion</a>
           </li>
         {% else %}
-          <li>
+          <li {% if 'connexion' == active %}class="current"{% endif %}>
             <a href="{{ url('technews_connexion') }}">Connexion</a>
+          </li>
+          <li {% if 'inscription' == active %}class="current"{% endif %}>
+            <a href="{{ url('technews_inscription') }}">Inscription</a>
           </li>
         {% endif %}
       </ul>

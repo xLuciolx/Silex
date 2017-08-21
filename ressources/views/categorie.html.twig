@@ -32,7 +32,7 @@
                             <div class="col-md-7 col-sm-7 col-xs-12">
                                 <h3><a href="{{ url('technews_article', {'libelleCategorie': article.LIBELLECATEGORIE | lower, 'slugArticle': article.TITREARTICLE | slugify, 'idArticle': article.IDARTICLE}) }}">{{ article.TITREARTICLE }}</a></h3>
                                 <div class="meta-post">
-                                    <a href="#">
+                                    <a href="{{ url('technews_auteur', {slugAuteur: article.PRENOMAUTEUR | lower ~'-'~ article.NOMAUTEUR | lower | slug, idAuteur: article.IDAUTEUR}) }}">
                                     {{ article.PRENOMAUTEUR ~ ' ' ~article.NOMAUTEUR }}
                                     </a>
                                     <em></em>
