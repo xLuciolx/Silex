@@ -2,10 +2,12 @@
 
 use Cocur\Slugify\Bridge\Silex2\SlugifyServiceProvider;
 use Silex\Provider\AssetServiceProvider;
+use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\HttpFragmentServiceProvider;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+use TechNews\Controller\Provider\AuteurProvider;
 use TechNews\Extension\TechNewsTwigExtension;
 use Idiorm\Silex\Provider\IdiormServiceProvider;
 
@@ -84,13 +86,25 @@ $app->register(new IdiormServiceProvider(), array(
 /*voir doc silex*/
 $app->register(new HttpFragmentServiceProvider());
 
+$app->register(new SessionServiceProvider());
+
 /*securisation*/
 $app->register(new SecurityServiceProvider(), array(
   'security.firewalls' => array(
     'main' => array(
       'pattern'   => '^/',  /*perimetre d'action du firewall*/
       'http'      => true,
-      'anonymous' => true   /*autorisation des utilisateurs anonymes*/
+      'anonymous' => true,   /*autorisation des utilisateurs anonymes*/
+      'form'      => array(
+        'login_path' => '/connexion',
+        'check_path' => '/connexion/login_check'  /*generer automatiquement par silex*/
+      ),
+      'logout'    => array(
+        'logout_path' => '/deconnexion'
+      ),
+      'users' => function () use($app){
+        return new AuteurProvider($app['idiorm.db']);
+        } /*ou aller chercher les differents utilisateurs*/
     )
   ),
   'security.access_rules' => array(

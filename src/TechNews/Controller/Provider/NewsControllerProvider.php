@@ -53,6 +53,12 @@ class NewsControllerProvider implements ControllerProviderInterface {
         ->get('/connexion', 'TechNews\Controller\NewsController::connexionAction')
         ->bind('technews_connexion');
 
+      // deconnexion
+      $controllers
+        ->get('/deconnexion', 'TechNews\Controller\NewsController::deconnexionAction')
+        ->bind('technews_deconnexion');
+
+
       //Page inscription
       $controllers
         ->get('/inscription', 'TechNews\Controller\NewsController::inscriptionAction')

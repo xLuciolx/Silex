@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% set active = 'connexion' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-xs-6 col-xs-push-3">
+      <h2 class="text-center">Connexion</h2 >
+      {% if error %}
+        <div class="alert alert-danger text-center">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          {{ error | replace({'Bad credentials.' : 'Identifiants et/ou mot de passe incorrect'})}}
+        </div>
+      {% endif %}
+
+      {% if global.request.get('inscription') == 'success' %}
+      <div class="alert alert-success text-center">
+        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+        <p>
+          Félicitation, votre inscription est effective.
+        </p>
+        <p>
+          Vous pouvez maintenant vous connectez
+        </p>
+      </div>
+    {% endif %}
+
+      <form class="form-horizontal" method="post" action="{{ url('connexion_login_check') }}">
+        <!-- Email et Mot de Passe -->
+        <div class="form-group">
+          <div class="col-xs-12">
+            <input name="_username" required class="form-control" type="email" placeholder="Saisissez votre Email" value="{{ last_username }}">
+          </div>
+          <div class="col-xs-12">
+            <input name="_password" required class="form-control" type="password" placeholder="*********">
+          </div>
+        </div>
+
+        <input type="submit" class="btn btn-block btn-primary" value="Connexion">
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

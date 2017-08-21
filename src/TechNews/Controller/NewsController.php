@@ -1,5 +1,6 @@
 <?php
 namespace TechNews\Controller;
+
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -116,8 +117,22 @@ class NewsController {
    * }
    */
 
-   public function connexionAction(){
-     return '<h1>Connexion</h1>';
+  /**
+   * @param  Application $app
+   * @param  Request $request
+   */
+   public function connexionAction(Application $app, Request $request){
+     return $app['twig']->render('connexion.html.twig', [
+       'error'         => $app['security.last_error']($request),
+       'last_username' => $app['session']->get('_security.last_username')
+     ]);
+   }
+
+  /*Deconnexion*/
+   public function deconnexionAction(Application $app){
+       $app['session']->clear();
+      return $app->redirect($app['url_generator']
+                 ->generate('technews_home'));
    }
 
    public function inscriptionAction(Application $app){

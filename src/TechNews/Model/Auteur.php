@@ -39,7 +39,53 @@ class Auteur implements UserInterface {
 
   /*getters*/
 
+  /**
+   * @return mixed
+   */
+  public function getIDAUTEUR()
+  {
+    return $this->IDAUTEUR;
+  }
 
+  /**
+   * @return mixed
+   */
+  public function getNOMAUTEUR()
+  {
+    return $this->NOMAUTEUR;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getPRENOMAUTEUR()
+  {
+    return $this->PRENOMAUTEUR;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getEMAILAUTEUR()
+  {
+    return $this->EMAILAUTEUR;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getMDPAUTEUR()
+  {
+    return $this->MDPAUTEUR;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getROLESAUTEUR()
+  {
+    return $this->ROLESAUTEUR;
+  }
 
 
 

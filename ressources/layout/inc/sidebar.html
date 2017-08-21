@@ -1,113 +1,137 @@
 <!--colright-->
 <div class="col-md-4 col-sm-12">
-	<!--tab popular-->
-	<ul role="tablist" class="tab-popular">
-		<li class="active">
-			<a href="#tab1" role="tab" data-toggle="tab">
-				DERNI&Egrave;RE PUBLICATIONS
-			</a>
-		</li>
-	</ul>
-	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane active" id="tab1">
-			<ul class="list-news-popular">
-				{% for last in app.lastArticles %}
-				<li>
-					<a href="{{ url('technews_article', {'libelleCategorie': last.LIBELLECATEGORIE | lower, 'slugArticle': last.TITREARTICLE | slugify, 'idArticle': last.IDARTICLE}) }}">
-						<img alt="{{ last.TITREARTICLE }}" src="{{asset('assets/images/product/' ~ last.FEATUREDIMAGEARTICLE)}}">
-					</a>
-					<h3><a href="{{ url('technews_article', {'libelleCategorie': last.LIBELLECATEGORIE | lower, 'slugArticle': last.TITREARTICLE | slugify, 'idArticle': last.IDARTICLE}) }}">{{ last.TITREARTICLE }}</a></h3>
-					<div class="meta-post">
-						<a href="{{ url('technews_auteur', {slugAuteur: last.PRENOMAUTEUR | lower ~'-'~ last.NOMAUTEUR | lower | slug, idAuteur: last.IDAUTEUR}) }}">
-							{{ last.PRENOMAUTEUR ~ ' ' ~ last.NOMAUTEUR }}
-
-						</a>
-						<em></em>
-						<span>
-							{{ last.DATECREATIONARTICLE }}
-						</span>
-					</div>
-				</li>
-				{% endfor %}
-			</ul>
-
-		</div>
-	</div>
-
-	<!-- subcribe box-->
-	<div class="subcribe-box">
-		<h3>NEWSLETTER</h3>
-		<p>Inscrivez-vous pour recevoir nos dernières publications.</p>
-		<input type="text" placeholder="Votre Email..." />
-		<button class="my-btn">Je m'inscris</button>
-	</div>
-	<!-- connect us-->
-	<div class="connect-us">
-		<div class="widget-title">
-			<span>
-				SUIVEZ-NOUS
-			</span>
-		</div>
-		<ul class="list-social-icon">
-			<li>
-				<a href="#" class="facebook">
-					<i class="fa fa-facebook"></i>
-				</a>
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <h3 class="text-center">
+      Bonjour
+      {{ app.user.PRENOMAUTEUR}}
+    </h3>
+    <h4 class="text-center">
+      {% if is_granted('ROLE_ADMIN') %}Administrateur
+      {% else %}
+        Auteur
+      {% endif %}
+    </h4>
+		<ul class="list-group">
+			<li class="list-group-item text-center">
+				<a href="{{ url('technews_admin')}}">Ajouter un article</a>
 			</li>
-			<li>
-				<a href="#" class="twitter">
-					<i class="fa fa-twitter"></i>
-				</a>
-			</li>
-			<li>
-				<a href="#" class="google">
-					<i class="fa fa-google"></i>
-				</a>
-			</li>
-			<li>
-				<a href="#" class="youtube">
-					<i class="fa fa-youtube-play"></i>
-				</a>
-			</li>
-			<li>
-				<a href="#" class="pinterest">
-					<i class="fa fa-pinterest-p"></i>
-				</a>
-			</li>
-			<li>
-				<a href="#" class="rss">
-					<i class="fa fa-rss"></i>
-				</a>
+			<li class="list-group-item text-center">
+				<a href="{{ url('technews_deconnexion') }}">Déconnexion</a>
 			</li>
 		</ul>
-	</div>
+  {% endif %}
+  <!--tab popular-->
+  <ul role="tablist" class="tab-popular">
+    <li class="active">
+      <a href="#tab1" role="tab" data-toggle="tab">
+        DERNI&Egrave;RE PUBLICATIONS
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="tab1">
+      <ul class="list-news-popular">
+        {% for last in app.lastArticles %}
+          <li>
+            <a href="{{ url('technews_article', {'libelleCategorie': last.LIBELLECATEGORIE | lower, 'slugArticle': last.TITREARTICLE | slugify, 'idArticle': last.IDARTICLE}) }}">
+              <img alt="{{ last.TITREARTICLE }}" src="{{asset('assets/images/product/' ~ last.FEATUREDIMAGEARTICLE)}}">
+            </a>
+            <h3>
+              <a href="{{ url('technews_article', {'libelleCategorie': last.LIBELLECATEGORIE | lower, 'slugArticle': last.TITREARTICLE | slugify, 'idArticle': last.IDARTICLE}) }}">{{ last.TITREARTICLE }}</a>
+            </h3>
+            <div class="meta-post">
+              <a href="{{ url('technews_auteur', {slugAuteur: last.PRENOMAUTEUR | lower ~'-'~ last.NOMAUTEUR | lower | slug, idAuteur: last.IDAUTEUR}) }}">
+                {{ last.PRENOMAUTEUR ~ ' ' ~ last.NOMAUTEUR }}
 
-	<!-- special post-->
-	<div class="connect-us">
-		<div class="widget-title">
-			<span>
-				En Avant
-			</span>
-		</div>
-		<div class="list-special">
-			{% for special in app.specialArticles %}
-			<article class="news-two-large">
-				<a href="{{ url('technews_article', {'libelleCategorie': special.LIBELLECATEGORIE | lower, 'slugArticle': special.TITREARTICLE | slugify, 'idArticle': special.IDARTICLE}) }}">
-					<img alt="{{ special.TITREARTICLE }}" src="{{ asset('assets/images/product/' ~ special.FEATUREDIMAGEARTICLE) }}">
-				</a>
-				<h3><a href="{{ url('technews_article', {'libelleCategorie': special.LIBELLECATEGORIE | lower, 'slugArticle': special.TITREARTICLE | slugify, 'idArticle': special.IDARTICLE}) }}">{{ special.TITREARTICLE }}</a></h3>
-				<div class="meta-post">
-					<a href="{{ url('technews_auteur', {slugAuteur: special.PRENOMAUTEUR | lower ~'-'~ special.NOMAUTEUR | lower | slug, idAuteur: special.IDAUTEUR}) }}">
-						{{ special.PRENOMAUTEUR ~ ' ' ~ special.NOMAUTEUR }}
-					</a>
-					<em></em>
-					<span>
-						{{ special.DATECREATIONARTICLE }}
-					</span>
-				</div>
+              </a>
+              <em></em>
+              <span>
+                {{ last.DATECREATIONARTICLE }}
+              </span>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
 
-			</article>
-			{% endfor %}
-		</div>
-	</div>
+    </div>
+  </div>
+
+  <!-- subcribe box-->
+  <div class="subcribe-box">
+    <h3>NEWSLETTER</h3>
+    <p>Inscrivez-vous pour recevoir nos dernières publications.</p>
+    <input type="text" placeholder="Votre Email..."/>
+    <button class="my-btn">Je m'inscris</button>
+  </div>
+  <!-- connect us-->
+  <div class="connect-us">
+    <div class="widget-title">
+      <span>
+        SUIVEZ-NOUS
+      </span>
+    </div>
+    <ul class="list-social-icon">
+      <li>
+        <a href="#" class="facebook">
+          <i class="fa fa-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="twitter">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="google">
+          <i class="fa fa-google"></i>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="youtube">
+          <i class="fa fa-youtube-play"></i>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="pinterest">
+          <i class="fa fa-pinterest-p"></i>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="rss">
+          <i class="fa fa-rss"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- special post-->
+  <div class="connect-us">
+    <div class="widget-title">
+      <span>
+        En Avant
+      </span>
+    </div>
+    <div class="list-special">
+      {% for special in app.specialArticles %}
+        <article class="news-two-large">
+          <a href="{{ url('technews_article', {'libelleCategorie': special.LIBELLECATEGORIE | lower, 'slugArticle': special.TITREARTICLE | slugify, 'idArticle': special.IDARTICLE}) }}">
+            <img alt="{{ special.TITREARTICLE }}" src="{{ asset('assets/images/product/' ~ special.FEATUREDIMAGEARTICLE) }}">
+          </a>
+          <h3>
+            <a href="{{ url('technews_article', {'libelleCategorie': special.LIBELLECATEGORIE | lower, 'slugArticle': special.TITREARTICLE | slugify, 'idArticle': special.IDARTICLE}) }}">{{ special.TITREARTICLE }}</a>
+          </h3>
+          <div class="meta-post">
+            <a href="{{ url('technews_auteur', {slugAuteur: special.PRENOMAUTEUR | lower ~'-'~ special.NOMAUTEUR | lower | slug, idAuteur: special.IDAUTEUR}) }}">
+              {{ special.PRENOMAUTEUR ~ ' ' ~ special.NOMAUTEUR }}
+            </a>
+            <em></em>
+            <span>
+              {{ special.DATECREATIONARTICLE }}
+            </span>
+          </div>
+
+        </article>
+      {% endfor %}
+    </div>
+  </div>
 </div>
