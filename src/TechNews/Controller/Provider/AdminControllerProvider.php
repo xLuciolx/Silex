@@ -11,7 +11,8 @@ class AdminControllerProvider implements ControllerProviderInterface {
     $adminControllers = $app['controllers_factory'];
 
       $adminControllers
-        ->get('/ajouter/article', 'TechNews\Controller\AdminController::addArticleAction')
+        ->match('/ajouter/article', 'TechNews\Controller\AdminController::addArticleAction')
+        ->method('GET|POST')
         ->bind('technews_addArticle');
 
     return $adminControllers;

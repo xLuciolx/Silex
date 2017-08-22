@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% set active = suggestions[0].LIBELLECATEGORIE %}
+{% set active = article.LIBELLECATEGORIE %}
 
 {% block title %}
   {{ article.TITREARTICLE }}
@@ -26,7 +26,7 @@
             <img alt="{{ article.TITREARTICLE }}" src="{{ asset('assets/images/product/' ~ article.FEATUREDIMAGEARTICLE) }}" />
         </div>
         <p>
-          {{ article.CONTENUARTICLE | raw}}
+          {{ article.CONTENUARTICLE | raw }}
         </p>
 
         <h5 class="text-right font-heading"><strong>  {{ article.PRENOMAUTEUR ~ ' ' ~ article.NOMAUTEUR }}</strong> </h5>

@@ -161,4 +161,33 @@ class NewsController {
       /*on redirige sur la page de connexion*/
       return $app->redirect('connexion?inscription=success');
    }
+
+  /*Traitement formulaire newsletter*/
+  public function newsletterAjax(Application $app, Request $request){
+
+    if ($request->isMethod('POST')) {
+
+      /*Verification si mail existe*/
+      $isMailInDb = $app['idiorm.db']->for_table('newsletter')
+                                     ->where('EMAILNEWSLETTER', $request->get('EMAILNEWSLETTER'))
+                                     ->count();
+    if (!$isMailInDb) {
+      /*Elle n'existe pas, on l'ajoute*/
+      $news = $app['idiorm.db']->for_table('newsletter')
+                               ->create();
+      $news->EMAILNEWSLETTER   = $request->get('EMAILNEWSLETTER');
+      $news->CONTACTNEWSLETTER = $request->get('CONTACTNEWSLETTER');
+      $news->save();
+
+      /*envoi réponse true*/
+      $answer = ['response' => true];
+    }
+    else {
+      $answer = ['response' => false];
+    }
+
+    return $app->json($answer);
+    }
+
+  }
 }

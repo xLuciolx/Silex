@@ -70,4 +70,5 @@
             $('.reviews-item').matchHeight();
         }
     });
+  
 })(jQuery);

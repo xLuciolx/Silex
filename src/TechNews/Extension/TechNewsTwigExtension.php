@@ -21,6 +21,7 @@ class TechNewsTwigExtension extends \Twig_Extension {
           /*on evite de couper un mot*/
           $string = substr($stringCut, 0, strrpos($stringCut, ' ')) . '...';
         }
+        // return iconv("utf-8", "us-ascii//TRANSLIT", $string);
         return $string;
       }),
 

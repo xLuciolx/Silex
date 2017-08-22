@@ -33,4 +33,98 @@
   <script src="{{asset('assets/js/bootstrap.js')}}"></script>
   <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
   <script src="{{asset('assets/js/main.js')}}"></script>
+  <script type="text/javascript">
+    $(function () {
+      // console.log('jquery');
+      /**
+ * Validate email function with regualr expression
+ *
+ * If email isn't valid then return false
+ *
+ * @param email
+ * @return Boolean
+ */
+function validateEmail(email){
+	var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+	var valid = emailReg.test(email);
+
+	if(!valid) {
+        return false;
+    } else {
+    	return true;
+    }
+}
+    $('#newsletterForm').on('submit', function(e){
+      // stop propagation
+      e.preventDefault();
+
+      // recuperation des champs
+      var prenom = $('#prenom');
+      var email  = $('#email');
+      errors     = [];
+
+      $('#newsletterForm .alert').remove();
+
+      //Verification prénom
+      if(prenom.val().length == 0){
+        errors.push('Vous devez saisir votre prénom');
+      }
+
+      //Verification mail
+      if(!validateEmail(email.val())){
+        errors.push('Vous devez saisir une adresse mail valide');
+      }
+
+      //affichage console
+      // console.log(errors);
+
+      if(errors.length == 0){
+        $.ajax({
+          url   : "{{ url('technews_newsletter') }}",
+          method: "POST",
+          data: {
+            EMAILNEWSLETTER  : email.val(),
+            CONTACTNEWSLETTER: prenom.val()
+          }
+        }).done(function(data){
+          console.log(data);
+          if(data.response){
+            $('#newsletterForm').replaceWith($(`
+              <div class="alert alert-success">
+                <strong>
+                  <i class="fa fa-thumbs-up"></i>
+                </strong>
+                <br> Votre inscription est validée
+              </div>
+              `));
+          }
+          else{
+            $(`
+              <div class="alert alert-warning">
+                <strong>
+                  <i class="fa fa-exclamation-triangle"></i>
+                </strong>
+                <br> Vous êtes déjà inscrit
+              </div>
+              `).prependTo($('#newsletterForm')).delay(3000)
+              .fadeOut();
+
+              $('#newsletterForm').get(0).reset();
+          }
+        });
+      }
+      else{
+        $(`
+          <div class="alert alert-warning">
+          <strong>
+            <i class="fa fa-exclamation-triangle"></i>
+          </strong>
+          Attention: ${errors}
+          </div>
+          `).prependTo($('#newsletterForm'));
+      }
+
+    });
+    });
+  </script>
 {% endblock %}

@@ -1,24 +1,24 @@
 <!--colright-->
 <div class="col-md-4 col-sm-12">
   {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <h3 class="text-center">
+  <h3 class="text-center">
       Bonjour
       {{ app.user.PRENOMAUTEUR}}
     </h3>
-    <h4 class="text-center">
+  <h4 class="text-center">
       {% if is_granted('ROLE_ADMIN') %}Administrateur
       {% else %}
         Auteur
       {% endif %}
     </h4>
-		<ul class="list-group">
-			<li class="list-group-item text-center">
-				<a href="{{ url('technews_addArticle')}}">Ajouter un article</a>
-			</li>
-			<li class="list-group-item text-center">
-				<a href="{{ url('technews_deconnexion') }}">Déconnexion</a>
-			</li>
-		</ul>
+  <ul class="list-group">
+    <li class="list-group-item text-center">
+      <a href="{{ url('technews_addArticle')}}">Ajouter un article</a>
+    </li>
+    <li class="list-group-item text-center">
+      <a href="{{ url('technews_deconnexion') }}">Déconnexion</a>
+    </li>
+  </ul>
   {% endif %}
   <!--tab popular-->
   <ul role="tablist" class="tab-popular">
@@ -32,24 +32,24 @@
     <div role="tabpanel" class="tab-pane active" id="tab1">
       <ul class="list-news-popular">
         {% for last in app.lastArticles %}
-          <li>
-            <a href="{{ url('technews_article', {'libelleCategorie': last.LIBELLECATEGORIE | lower, 'slugArticle': last.TITREARTICLE | slugify, 'idArticle': last.IDARTICLE}) }}">
+        <li>
+          <a href="{{ url('technews_article', {'libelleCategorie': last.LIBELLECATEGORIE | lower, 'slugArticle': last.TITREARTICLE | slugify, 'idArticle': last.IDARTICLE}) }}">
               <img alt="{{ last.TITREARTICLE }}" src="{{asset('assets/images/product/' ~ last.FEATUREDIMAGEARTICLE)}}">
             </a>
-            <h3>
+          <h3>
               <a href="{{ url('technews_article', {'libelleCategorie': last.LIBELLECATEGORIE | lower, 'slugArticle': last.TITREARTICLE | slugify, 'idArticle': last.IDARTICLE}) }}">{{ last.TITREARTICLE }}</a>
             </h3>
-            <div class="meta-post">
-              <a href="{{ url('technews_auteur', {slugAuteur: last.PRENOMAUTEUR | lower ~'-'~ last.NOMAUTEUR | lower | slug, idAuteur: last.IDAUTEUR}) }}">
+          <div class="meta-post">
+            <a href="{{ url('technews_auteur', {slugAuteur: last.PRENOMAUTEUR | lower ~'-'~ last.NOMAUTEUR | lower | slug, idAuteur: last.IDAUTEUR}) }}">
                 {{ last.PRENOMAUTEUR ~ ' ' ~ last.NOMAUTEUR }}
 
               </a>
-              <em></em>
-              <span>
+            <em></em>
+            <span>
                 {{ last.DATECREATIONARTICLE }}
               </span>
-            </div>
-          </li>
+          </div>
+        </li>
         {% endfor %}
       </ul>
 
@@ -60,8 +60,11 @@
   <div class="subcribe-box">
     <h3>NEWSLETTER</h3>
     <p>Inscrivez-vous pour recevoir nos dernières publications.</p>
-    <input type="text" placeholder="Votre Email..."/>
-    <button class="my-btn">Je m'inscris</button>
+    <form id="newsletterForm" novalidate>
+      <input type="text" id="prenom" placeholder="Votre prénom...">
+      <input type="text" id="email" placeholder="Votre Email..." />
+      <button class="my-btn">Je m'inscris</button>
+    </form>
   </div>
   <!-- connect us-->
   <div class="connect-us">
@@ -113,24 +116,24 @@
     </div>
     <div class="list-special">
       {% for special in app.specialArticles %}
-        <article class="news-two-large">
-          <a href="{{ url('technews_article', {'libelleCategorie': special.LIBELLECATEGORIE | lower, 'slugArticle': special.TITREARTICLE | slugify, 'idArticle': special.IDARTICLE}) }}">
+      <article class="news-two-large">
+        <a href="{{ url('technews_article', {'libelleCategorie': special.LIBELLECATEGORIE | lower, 'slugArticle': special.TITREARTICLE | slugify, 'idArticle': special.IDARTICLE}) }}">
             <img alt="{{ special.TITREARTICLE }}" src="{{ asset('assets/images/product/' ~ special.FEATUREDIMAGEARTICLE) }}">
           </a>
-          <h3>
+        <h3>
             <a href="{{ url('technews_article', {'libelleCategorie': special.LIBELLECATEGORIE | lower, 'slugArticle': special.TITREARTICLE | slugify, 'idArticle': special.IDARTICLE}) }}">{{ special.TITREARTICLE }}</a>
           </h3>
-          <div class="meta-post">
-            <a href="{{ url('technews_auteur', {slugAuteur: special.PRENOMAUTEUR | lower ~'-'~ special.NOMAUTEUR | lower | slug, idAuteur: special.IDAUTEUR}) }}">
+        <div class="meta-post">
+          <a href="{{ url('technews_auteur', {slugAuteur: special.PRENOMAUTEUR | lower ~'-'~ special.NOMAUTEUR | lower | slug, idAuteur: special.IDAUTEUR}) }}">
               {{ special.PRENOMAUTEUR ~ ' ' ~ special.NOMAUTEUR }}
             </a>
-            <em></em>
-            <span>
+          <em></em>
+          <span>
               {{ special.DATECREATIONARTICLE }}
             </span>
-          </div>
+        </div>
 
-        </article>
+      </article>
       {% endfor %}
     </div>
   </div>
