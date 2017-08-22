@@ -1,10 +1,15 @@
 <?php
 
 use Cocur\Slugify\Bridge\Silex2\SlugifyServiceProvider;
+use Silex\Provider\CsrfServiceProvider;
+use Silex\Provider\FormServiceProvider;
 use Silex\Provider\AssetServiceProvider;
+use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
+use Silex\Provider\ValidatorServiceProvider;
+use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\HttpFragmentServiceProvider;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use TechNews\Controller\Provider\AuteurProvider;
@@ -56,6 +61,14 @@ $app['specialArticles'] = function () use($app){
 
 /*activation de Asset*/
 $app->register(new AssetServiceProvider());
+
+$app->register(new FormServiceProvider());
+$app->register(new CsrfServiceProvider());
+$app->register(new LocaleServiceProvider());
+$app->register(new ValidatorServiceProvider());
+$app->register(new TranslationServiceProvider(), array(
+  'translator.domains' => array()
+));
 
 /*activation Doctrine DBAL*/
 $app->register(new DoctrineServiceProvider(),array(
