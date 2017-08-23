@@ -22,7 +22,7 @@ class AdminController {
 
     /*recuperation de la liste des auteurs*/
     $auteurs = function () use($app){
-      $auteurs = $app['idiorm.db']->for_table('auteur')
+    $auteurs = $app['idiorm.db']->for_table('auteur')
                                   ->find_result_set();
     /*formatage de l'affichage du select*/
     $array = [];
@@ -34,7 +34,7 @@ class AdminController {
 
     /*liste de categories*/
     $categories = function () use($app){
-      $categories = $app['idiorm.db']->for_table('categorie')
+    $categories = $app['idiorm.db']->for_table('categorie')
                                      ->find_result_set();
     /*formatage de l'affichage du select*/
     $array = [];
