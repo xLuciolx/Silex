@@ -19,7 +19,7 @@ use Idiorm\Silex\Provider\IdiormServiceProvider;
 /*mode debug*/
 $app['debug'] = true;
 
-/*gestion de nos controller via ControllerProvider*/
+/*gestion de nos controllers via ControllerProvider*/
 require PATH_SRC.'/routes.php';
 
 /*activation de twig*/
