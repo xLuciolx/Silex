@@ -62,6 +62,7 @@ $app['specialArticles'] = function () use($app){
 /*activation de Asset*/
 $app->register(new AssetServiceProvider());
 
+/*activation Form, Security, Validator et Csrf*/
 $app->register(new FormServiceProvider());
 $app->register(new CsrfServiceProvider());
 $app->register(new LocaleServiceProvider());
