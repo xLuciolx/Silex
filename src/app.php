@@ -72,23 +72,36 @@ $app->register(new TranslationServiceProvider(), array(
 ));
 
 /*activation Doctrine DBAL*/
+/*localhost*/
 $app->register(new DoctrineServiceProvider(),array(
     'db.options' => array(
       'driver'   => 'pdo_mysql',
       'host'     => 'localhost',
       'dbname'   => 'technews2',
       'user'     => 'root',
-      'password' => ''
+      'password' => '160178'
 
     ),
 ));
+/*online*/
+// $app->register(new DoctrineServiceProvider(),array(
+//     'db.options' => array(
+//       'driver'   => 'pdo_mysql',
+//       'host'     => 'db699050988.db.1and1.com',
+//       'dbname'   => 'db699050988',
+//       'user'     => 'dbo699050988',
+//       'password' => '@160178DoB'
+//
+//     ),
+// ));
 
 /*integration Idiorm*/
+/*localhost*/
 $app->register(new IdiormServiceProvider(), array(
   'idiorm.db.options'     => array(
     'connection_string'   => 'mysql:host=localhost; dbname=technews2',
     'username'            => 'root',
-    'password'            => '',
+    'password'            => '160178',
     'id_column_overrides' => array(
       'view_articles'     => 'IDARTICLE',
       'article'           => 'IDARTICLE',
@@ -97,6 +110,20 @@ $app->register(new IdiormServiceProvider(), array(
 
   )
 ));
+/*online*/
+// $app->register(new IdiormServiceProvider(), array(
+//   'idiorm.db.options'     => array(
+//     'connection_string'   => 'mysql:host=db699050988.db.1and1.com; dbname=db699050988',
+//     'username'            => 'dbo699050988',
+//     'password'            => '@160178DoB',
+//     'id_column_overrides' => array(
+//       'view_articles'     => 'IDARTICLE',
+//       'article'           => 'IDARTICLE',
+//       'categorie'         => 'IDCATEGORIE'
+//     )
+//
+//   )
+// ));
 
 /*Activation HttpFragmentServiceProvider*/
 /*voir doc silex*/
